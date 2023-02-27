@@ -13,6 +13,7 @@ pip install -e .
 
 
 ## Usage
+The shapefile.shp should be a polygon representing the area of interest within which small boxes will be created. 
 
 ```python
  from randombox import random_box
