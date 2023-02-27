@@ -22,6 +22,7 @@ The shapefile.shp should be a polygon representing the area of interest within w
  num_points = 10
  size = 0.1
  squares_gdf = random_box(geo_path, num_points, size)
+ squares_gdf.to_file("folder/squares.geojson", driver="GeoJSON")
 ```
 
 ## Development
