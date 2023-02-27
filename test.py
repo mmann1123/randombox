@@ -1,3 +1,4 @@
+# %%
 import unittest
 
 from randombox import random_box
@@ -11,12 +12,12 @@ poly = gpd.GeoDataFrame(
     geometry="geometry",
     crs="EPSG:4326",
 )
-poly.to_file("data/square.shp")
+poly.to_file("data/square.geojson", driver="GeoJSON")
 
 
 class TestProperties(unittest.TestCase):
     def test_random_box(self):
-        geo_path = "data/square.shp"
+        geo_path = "data/square.geojson"
         num_points = 10
         size = 0.1
         squares_gdf = random_box(geo_path, num_points, size)
@@ -26,3 +27,5 @@ class TestProperties(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+# %%

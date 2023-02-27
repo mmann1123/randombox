@@ -6,7 +6,7 @@ Creates randomly located points of a fixed size
 
 
 ```bash
-git clone 
+git clone https://github.com/mmann1123/randombox.git
 cd randombox
 pip install -e .
 ```
