@@ -1,4 +1,3 @@
-# %%
 import unittest
 
 from randombox import random_box
