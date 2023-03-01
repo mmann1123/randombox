@@ -1,4 +1,4 @@
-Creates randomly located points of a fixed size
+Creates randomly located boxes of a fixed size
 
 # randombox
 
@@ -41,3 +41,9 @@ pytest
 
 ## License
  MIT
+
+## Contribute
+As you make local edits, install them using the following from the terminal:
+``` bash
+pip install e . 
+```
