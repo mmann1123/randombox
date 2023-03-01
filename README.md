@@ -1,4 +1,4 @@
-Creates randomly located points of a fixed size
+Creates randomly located boxes of a fixed size
 
 # randombox
 
