@@ -9,7 +9,6 @@ Creates randomly located points of a fixed size
 git clone https://github.com/mmann1123/randombox.git
 cd randombox
 pip install -r ./requirements.txt
-pip install -e .
 ```
 
 
