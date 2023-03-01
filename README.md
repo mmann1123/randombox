@@ -41,3 +41,9 @@ pytest
 
 ## License
  MIT
+
+## Contribute
+As you make local edits, install them using the following from the terminal:
+``` bash
+pip install e . 
+```
