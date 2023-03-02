@@ -21,10 +21,10 @@ def create_square(point, size):
     x, y = point.x, point.y
     square = Polygon(
         [
-            (x - size, y - size),
-            (x + size, y - size),
-            (x + size, y + size),
-            (x - size, y + size),
+            (x - size * 0.5, y - size * 0.5),
+            (x + size * 0.5, y - size * 0.5),
+            (x + size * 0.5, y + size * 0.5),
+            (x - size * 0.5, y + size * 0.5),
         ]
     )
     return square
