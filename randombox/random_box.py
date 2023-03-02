@@ -1,6 +1,7 @@
 import numpy as np
 from shapely.geometry import Polygon, Point
 import geopandas as gpd
+import os
 
 
 # create random points within polygon
@@ -39,8 +40,29 @@ def create_square_gdf(points, size, polygon):
 
 
 # read in shapefile create random points inside of it and create square polygons around each point of a given size return geodataframe of squares with crs of polygon
-def random_box(geo_path, num_points, size):
+def random_box(geo_path, num_points, size, year):
     polygon = gpd.read_file(geo_path)
     points = Random_Points_In_Polygon(polygon.geometry[0], num_points)
     squares_gdf = create_square_gdf(points, size, polygon)
+    write_to_geojson(squares_gdf, geo_path, year)
     return squares_gdf
+
+
+# iterate through features of squares_gdf and write each feature to a new geojson file
+def write_to_geojson(squares_gdf, geo_path, year):
+    for i, row in squares_gdf.iterrows():
+        square = squares_gdf.loc[[i]]
+        print(square)
+        filename = os.path.join(
+            os.path.dirname(geo_path), f"{i:06d}_grid_{year}" + ".geojson"
+        )
+        square.to_file(
+            filename,
+            driver="GeoJSON",
+        )
+        square.to_file(
+            os.path.join(
+                os.path.dirname(geo_path), f"{i:06d}_poly_{year}" + ".geojson"
+            ),
+            driver="GeoJSON",
+        )

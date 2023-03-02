@@ -19,7 +19,7 @@ class TestProperties(unittest.TestCase):
         geo_path = "data/square.geojson"
         num_points = 10
         size = 0.1
-        squares_gdf = random_box(geo_path, num_points, size)
+        squares_gdf = random_box(geo_path, num_points, size, year="2020")
         assert squares_gdf.shape[0] == num_points
         assert squares_gdf.crs == "EPSG:4326"
 

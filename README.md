@@ -4,16 +4,15 @@ Creates randomly located boxes of a fixed size
 
 ## Installation
 
-
 ```bash
 git clone https://github.com/mmann1123/randombox.git
 cd randombox
 pip install -r ./requirements.txt
 ```
 
-
 ## Usage
-The shapefile.shp should be a polygon representing the area of interest within which small boxes will be created. 
+
+The shapefile.shp should be a polygon representing the area of interest within which small boxes will be created.
 
 ```python
  from randombox import random_box
@@ -36,14 +35,18 @@ pip install -e .
 ## Testing
 
 ```bash
-pytest
+pip install testfixtures
+python -m unittest
 ```
 
 ## License
+
  MIT
 
 ## Contribute
+
 As you make local edits, install them using the following from the terminal:
+
 ``` bash
 pip install e . 
 ```
