@@ -53,6 +53,7 @@ class TestProperties(unittest.TestCase):
         assert squares_gdf.shape[0] == num_points
         assert squares_gdf.crs == "EPSG:32737"
 
+    # test if rasterio can read the file
     def test_random_box_rasterio(self):
         geo_path = "data/square.tif"
         num_points = 5
