@@ -12,16 +12,26 @@ pip install -r ./requirements.txt
 
 ## Usage
 
-The shapefile.shp should be a polygon representing the area of interest within which small boxes will be created.
+The `geo_path` should be a polygon or raster image representing the area of interest within which small boxes will be created.
+
+The size of the box is determined by the linear unit of `crs`
+
 
 ```python
  from randombox import random_box
 
- geo_path = "data/shapefile.shp"
- num_points = 10
- size = 0.1
- squares_gdf = random_box(geo_path, num_points, size)
- squares_gdf.to_file("folder/squares.geojson", driver="GeoJSON")
+# read in a geotif
+geo_path = "/some/folder/image.tif"
+num_points = 5
+size = 1000
+squares_gdf = random_box(geo_path, num_points, size, year="2020", crs="EPSG:3395")
+
+# Alternatively pass a geojson file defining the area of interest. 
+geo_path = "/some/data/square.geojson"
+num_points = 5
+size = 1000
+squares_gdf = random_box(geo_path, num_points, size, year="2020", crs="EPSG:3395")
+
 ```
 
 ## Development
