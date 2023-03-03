@@ -56,11 +56,11 @@ def read_a_file(geo_path):
 
 
 # iterate through features of squares_gdf and write each feature to a new geojson file
-def write_to_geojson(squares_gdf, geo_path, year):
+def write_to_geojson(squares_gdf, geo_path, name_postfix):
     for i, row in squares_gdf.iterrows():
         square = squares_gdf.loc[[i]]
         filename = os.path.join(
-            os.path.dirname(geo_path), f"{i:06d}_grid_{year}" + ".geojson"
+            os.path.dirname(geo_path), f"{i:06d}_grid_{name_postfix}" + ".geojson"
         )
         square.to_file(
             filename,
@@ -68,14 +68,14 @@ def write_to_geojson(squares_gdf, geo_path, year):
         )
         square.to_file(
             os.path.join(
-                os.path.dirname(geo_path), f"{i:06d}_poly_{year}" + ".geojson"
+                os.path.dirname(geo_path), f"{i:06d}_poly_{name_postfix}" + ".geojson"
             ),
             driver="GeoJSON",
         )
 
 
 # read in shapefile create random points inside of it and create square polygons around each point of a given size return geodataframe of squares with crs of polygon
-def random_box(geo_path, num_points, size, year, crs="EPSG:3395"):
+def random_box(geo_path, num_points, size, name_postfix, crs="EPSG:3395"):
     """
     Writes a geojson file for random squares of a given size in a given crs
     within polygon or raster bounds in geo_path
@@ -83,7 +83,7 @@ def random_box(geo_path, num_points, size, year, crs="EPSG:3395"):
     geo_path: path to shapefile or raster
     num_points: number of random boxes to create
     size: size of square in linear unit of crs
-    year: year of data - appended to filename
+    name_postfix: name_postfix of data - appended to filename
     crs: crs of output with linear unit for use in size
 
     returns: geodataframe of squares with crs of polygon
@@ -91,7 +91,7 @@ def random_box(geo_path, num_points, size, year, crs="EPSG:3395"):
     polygon = read_a_file(geo_path).to_crs(crs)
     points = Random_Points_In_Polygon(polygon.geometry, num_points)
     squares_gdf = create_square_gdf(points, size, polygon)
-    write_to_geojson(squares_gdf, geo_path, year)
+    write_to_geojson(squares_gdf, geo_path, name_postfix)
     return squares_gdf
 
 
@@ -106,7 +106,7 @@ def random_box(geo_path, num_points, size, year, crs="EPSG:3395"):
 # geo_path = "/home/mmann1123/Documents/github/randombox/data/square.tif"
 # num_points = 5
 # size = 0.1
-# squares_gdf = random_box(geo_path, num_points, size, year="2020", crs="EPSG:32737")
+# squares_gdf = random_box(geo_path, num_points, size, name_postfix="2020", crs="EPSG:32737")
 # assert squares_gdf.shape[0] == num_points
 # assert squares_gdf.crs == "EPSG:32737"
 
@@ -114,7 +114,7 @@ def random_box(geo_path, num_points, size, year, crs="EPSG:3395"):
 # geo_path = "/home/mmann1123/Documents/github/randombox/data/square.geojson"
 # num_points = 5
 # size = 0.1
-# squares_gdf = random_box(geo_path, num_points, size, year="2020", crs="EPSG:32737")
+# squares_gdf = random_box(geo_path, num_points, size, name_postfix="2020", crs="EPSG:32737")
 # assert squares_gdf.shape[0] == num_points
 # assert squares_gdf.crs == "EPSG:32737"
 # %%

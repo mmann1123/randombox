@@ -16,7 +16,6 @@ The `geo_path` should be a polygon or raster image representing the area of inte
 
 The size of the box is determined by the linear unit of `crs`
 
-
 ```python
  from randombox import random_box
 
@@ -24,13 +23,13 @@ The size of the box is determined by the linear unit of `crs`
 geo_path = "/some/folder/image.tif"
 num_points = 5
 size = 1000
-squares_gdf = random_box(geo_path, num_points, size, year="2020", crs="EPSG:3395")
+squares_gdf = random_box(geo_path, num_points, size, name_postfix="2020", crs="EPSG:3395")
 
 # Alternatively pass a geojson file defining the area of interest. 
 geo_path = "/some/data/square.geojson"
 num_points = 5
 size = 1000
-squares_gdf = random_box(geo_path, num_points, size, year="2020", crs="EPSG:3395")
+squares_gdf = random_box(geo_path, num_points, size, name_postfix="2020", crs="EPSG:3395")
 
 ```
 

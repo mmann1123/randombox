@@ -48,7 +48,7 @@ class TestProperties(unittest.TestCase):
         num_points = 5
         size = 0.1
         squares_gdf = random_box(
-            geo_path, num_points, size, year="2020", crs="EPSG:32737"
+            geo_path, num_points, size, name_postfix="2020", crs="EPSG:32737"
         )
         assert squares_gdf.shape[0] == num_points
         assert squares_gdf.crs == "EPSG:32737"
@@ -59,7 +59,7 @@ class TestProperties(unittest.TestCase):
         num_points = 5
         size = 0.1
         squares_gdf = random_box(
-            geo_path, num_points, size, year="2020", crs="EPSG:32737"
+            geo_path, num_points, size, name_postfix="2020", crs="EPSG:32737"
         )
         assert squares_gdf.shape[0] == num_points
         assert squares_gdf.crs == "EPSG:32737"
