@@ -4,6 +4,7 @@ from shapely.geometry import Polygon, Point, box
 import geopandas as gpd
 import os
 import rasterio
+from geopandas import GeoDataFrame
 
 
 # create random points within polygon
@@ -14,8 +15,9 @@ def Random_Points_In_Polygon(poly, num_points):
         random_point = Point(
             [np.random.uniform(min_x, max_x), np.random.uniform(min_y, max_y)]
         )
-        if random_point.within(poly[0]):
+        if any(random_point.within(poly.geometry)):
             points.append(random_point)
+
     return points
 
 
@@ -95,4 +97,24 @@ def random_box(geo_path, num_points, size, year, crs="EPSG:3395"):
 
 # # %%
 
+# poly = gpd.read_file(gpd.datasets.get_path("naturalearth_lowres"))
+# poly = poly[poly.name == "Tanzania"]
+# points = Random_Points_In_Polygon(poly, 5)
+# assert len(points) == 5
+
+# # %%
+# geo_path = "/home/mmann1123/Documents/github/randombox/data/square.tif"
+# num_points = 5
+# size = 0.1
+# squares_gdf = random_box(geo_path, num_points, size, year="2020", crs="EPSG:32737")
+# assert squares_gdf.shape[0] == num_points
+# assert squares_gdf.crs == "EPSG:32737"
+
+# # %%
+# geo_path = "/home/mmann1123/Documents/github/randombox/data/square.geojson"
+# num_points = 5
+# size = 0.1
+# squares_gdf = random_box(geo_path, num_points, size, year="2020", crs="EPSG:32737")
+# assert squares_gdf.shape[0] == num_points
+# assert squares_gdf.crs == "EPSG:32737"
 # %%

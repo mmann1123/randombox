@@ -1,6 +1,6 @@
 # %%
 import unittest
-from randombox import random_box
+from randombox import random_box, Random_Points_In_Polygon
 from shapely.geometry import Polygon
 import geopandas as gpd
 import random
@@ -64,6 +64,15 @@ class TestProperties(unittest.TestCase):
         assert squares_gdf.shape[0] == num_points
         assert squares_gdf.crs == "EPSG:32737"
 
+    def test_Random_Points_In_Polygon(self):
+        poly = gpd.read_file(gpd.datasets.get_path("naturalearth_lowres"))
+        poly = poly[poly.name == "United States of America"]
+        points = Random_Points_In_Polygon(poly, 5)
+        assert len(points) == 5
+
 
 if __name__ == "__main__":
     unittest.main()
+
+
+# %%
