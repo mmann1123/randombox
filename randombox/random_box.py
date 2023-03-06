@@ -56,7 +56,7 @@ def read_a_file(geo_path):
 
 
 # iterate through features of squares_gdf and write each feature to a new geojson file
-def write_to_geojson(squares_gdf, geo_path, name_prefix, name_postfix):
+def write_to_geojson(squares_gdf, geo_path, out_dir, name_prefix, name_postfix):
     for i, row in squares_gdf.iterrows():
         # get square from squares_gdf
         square = squares_gdf.loc[[i]]
@@ -65,9 +65,13 @@ def write_to_geojson(squares_gdf, geo_path, name_prefix, name_postfix):
         if name_prefix is None:
             name_prefix = f"{i:06d}"
 
+        # out path
+        if out_dir is None:
+            out_dir = os.path.dirname(geo_path)
+
         # write grid to geojson
         filename = os.path.join(
-            os.path.dirname(geo_path),
+            out_dir,
             f"{name_prefix}_grid_{name_postfix}" + ".geojson",
         )
         square.to_file(
@@ -78,7 +82,7 @@ def write_to_geojson(squares_gdf, geo_path, name_prefix, name_postfix):
         # write ploy to geojson
         square.to_file(
             os.path.join(
-                os.path.dirname(geo_path),
+                out_dir,
                 f"{name_prefix}_poly_{name_postfix}" + ".geojson",
             ),
             driver="GeoJSON",
@@ -87,7 +91,13 @@ def write_to_geojson(squares_gdf, geo_path, name_prefix, name_postfix):
 
 # read in shapefile create random points inside of it and create square polygons around each point of a given size return geodataframe of squares with crs of polygon
 def random_box(
-    geo_path, num_points, size, name_prefix=None, name_postfix=None, crs="EPSG:3395"
+    geo_path,
+    num_points,
+    size,
+    out_dir=None,
+    name_prefix=None,
+    name_postfix=None,
+    crs="EPSG:3395",
 ):
     """
     Writes a geojson file for random squares of a given size in a given crs
@@ -96,8 +106,8 @@ def random_box(
     geo_path: path to shapefile or raster
     num_points: number of random boxes to create
     size: size of square in linear unit of crs
+    out_dir: directory to write geojson files
     name_prefix: name_prefix of data - prepended to filename
-
     name_postfix: name_postfix of data - appended to filename
     crs: crs of output with linear unit for use in size
 
@@ -106,7 +116,7 @@ def random_box(
     polygon = read_a_file(geo_path).to_crs(crs)
     points = Random_Points_In_Polygon(polygon.geometry, num_points)
     squares_gdf = create_square_gdf(points, size, polygon)
-    write_to_geojson(squares_gdf, geo_path, name_prefix, name_postfix)
+    write_to_geojson(squares_gdf, geo_path, out_dir, name_prefix, name_postfix)
     return squares_gdf
 
 
