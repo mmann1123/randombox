@@ -55,6 +55,7 @@ def read_a_file(geo_path):
     return polygon
 
 
+# create a poly and grid geojson file for each input
 def write_poly_grid(out_shape, out_dir, name_prefix, name_postfix):
     # write multi-box to geojson
     filename = os.path.join(
@@ -171,8 +172,24 @@ def random_box(
 #     name_postfix="2020",
 #     crs="EPSG:32737",
 # )
+
+# out = gpd.read_file(
+#     os.path.join(os.path.dirname(geo_path), "singlefile_grid_2020.geojson")
+# )
 # assert squares_gdf.shape[0] == num_points
 # assert squares_gdf.crs == "EPSG:32737"
-# assert gpd.read_file(os.path.join(os.path.dirname(geo_path),'singlefile_grid_2020.geojson')).shape[0] == num_points
+# assert out.shape[0] == num_points
+# assert out.shape[0] == out.dissolve().shape[0]
 
-# %%
+
+# # %%
+# for i, row in random_point.iterrows():
+#     # get square from squares_gdf
+#     square = squares_gdf.loc[[i]]
+#     not_square = squares_gdf.drop([i])
+
+#     # check if it intersects any other polygons in squares_gdf
+#     assert not any(square.intersects(squares_gdf.geometry))
+
+
+# any(random_point.within(poly.geometry))

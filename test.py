@@ -14,8 +14,8 @@ random.seed(10)
 poly = gpd.read_file(gpd.datasets.get_path("naturalearth_lowres"))
 poly.loc[poly["name"] == "Tanzania"].to_file("./data/square.geojson", driver="GeoJSON")
 
-x = np.linspace(-20, 20, 6)
-y = np.linspace(20, -20, 6)
+x = np.linspace(-1, 1, 6)
+y = np.linspace(1, -1, 6)
 X, Y = np.meshgrid(x, y)
 Z1 = np.abs(((X - 10) ** 2 + (Y - 10) ** 2) / 1**2)
 Z2 = np.abs(((X + 10) ** 2 + (Y + 10) ** 2) / 2.5**2)
@@ -46,7 +46,7 @@ class TestProperties(unittest.TestCase):
     def test_random_box_geopandas(self):
         geo_path = "data/square.geojson"
         num_points = 5
-        size = 1000
+        size = 10000
         squares_gdf = random_box(
             geo_path, num_points, size, name_postfix="2020", crs="EPSG:32737"
         )
@@ -57,7 +57,7 @@ class TestProperties(unittest.TestCase):
     def test_random_box_rasterio(self):
         geo_path = "data/square.tif"
         num_points = 5
-        size = 1000
+        size = 10000
         squares_gdf = random_box(
             geo_path, num_points, size, name_postfix="2020", crs="EPSG:32737"
         )
@@ -73,8 +73,8 @@ class TestProperties(unittest.TestCase):
     def test_random_box_geopandas_singlefile(self):
         geo_path = "/home/mmann1123/Documents/github/randombox/data/square.geojson"
 
-        num_points = 10
-        size = 1000
+        num_points = 40
+        size = 10000
         squares_gdf = random_box(
             geo_path,
             num_points,
