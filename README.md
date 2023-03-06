@@ -1,6 +1,9 @@
+# randombox
+
 Creates randomly located boxes of a fixed size
 
-# randombox
+![Screenshot from 2023-03-06 16-41-38](https://user-images.githubusercontent.com/5185364/223238740-54445800-5f1d-459e-911b-0465e8bca8e2.png)
+
 
 ## Installation
 
