@@ -7,7 +7,7 @@ import random
 import numpy as np
 from rasterio.transform import Affine
 import rasterio
-
+import os
 
 random.seed(10)
 
@@ -46,7 +46,7 @@ class TestProperties(unittest.TestCase):
     def test_random_box_geopandas(self):
         geo_path = "data/square.geojson"
         num_points = 5
-        size = 0.1
+        size = 1000
         squares_gdf = random_box(
             geo_path, num_points, size, name_postfix="2020", crs="EPSG:32737"
         )
@@ -57,7 +57,7 @@ class TestProperties(unittest.TestCase):
     def test_random_box_rasterio(self):
         geo_path = "data/square.tif"
         num_points = 5
-        size = 0.1
+        size = 1000
         squares_gdf = random_box(
             geo_path, num_points, size, name_postfix="2020", crs="EPSG:32737"
         )
@@ -69,6 +69,28 @@ class TestProperties(unittest.TestCase):
         poly = poly[poly.name == "United States of America"]
         points = Random_Points_In_Polygon(poly, 5)
         assert len(points) == 5
+
+    def test_random_box_geopandas_singlefile(self):
+        geo_path = "/home/mmann1123/Documents/github/randombox/data/square.geojson"
+
+        num_points = 10
+        size = 1000
+        squares_gdf = random_box(
+            geo_path,
+            num_points,
+            size,
+            name_prefix="singlefile",
+            name_postfix="2020",
+            crs="EPSG:32737",
+        )
+        assert squares_gdf.shape[0] == num_points
+        assert squares_gdf.crs == "EPSG:32737"
+        assert (
+            gpd.read_file(
+                os.path.join(os.path.dirname(geo_path), "singlefile_grid_2020.geojson")
+            ).shape[0]
+            == num_points
+        )
 
 
 if __name__ == "__main__":
