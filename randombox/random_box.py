@@ -133,6 +133,48 @@ def random_box(
     return squares_gdf
 
 
+# # create function using create_square_gdf and create_square to generate randomly located non-overlapping squares of a given size within a polygon
+# def create_non_overlapping_squares(polygon, size, crs="EPSG:3395"):
+#     """
+#     Creates non-overlapping squares of a given size in a given crs
+#     within polygon or raster bounds in geo_path
+
+#     polygon: geopandas polygon
+#     size: size of square in linear unit of crs
+#     crs: crs of output with linear unit for use in size
+
+#     returns: geodataframe of squares with crs of polygon
+#     """
+#     # get bounds of polygon
+#     min_x, min_y, max_x, max_y = polygon.bounds.values[0]
+
+#     # create empty list to store squares
+#     squares = []
+
+#     # create squares until they cover the polygon
+#     while True:
+#         # create random point within bounds
+#         random_point = Point(
+#             [np.random.uniform(min_x, max_x), np.random.uniform(min_y, max_y)]
+#         )
+
+#         # if point is within polygon create square around point
+#         if any(random_point.within(polygon.geometry)):
+#             square = create_square(random_point, size)
+
+#             # if square does not overlap any other squares add it to list
+#             if not any([square.intersects(s) for s in squares]):
+#                 squares.append(square)
+
+#         # if all squares cover polygon break loop
+#         if any([polygon.contains(s) for s in squares]):
+#             break
+
+#     # create geodataframe of squares with crs of polygon
+#     squares_gdf = gpd.GeoDataFrame(squares, columns=["geometry"])
+#     squares_gdf.crs = polygon.crs
+#     return squares_gdf
+
 # # %%
 
 # poly = gpd.read_file(gpd.datasets.get_path("naturalearth_lowres"))
